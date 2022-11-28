@@ -10,8 +10,7 @@ AZ                    = ["us-east-1a", "us-east-1b"]
 DEFAULT_VPC_ID        = "vpc-0ea60a247fdfddb3a"
 DEFAULT_VPC_CIDR      = "172.31.0.0/16"
 DEFAULT_VPC_RT        = "rtb-02eb032c1772c8036"
-PRIVATE_ZONE_ID       = "Z078807431WCP5BA26ASG"
-PUBLIC_ZONE_ID        = "Z10371081GJLGSRLIHNAA"
+
 
 // RDS
 RDS_ENGINE          = "mysql"
