@@ -15,7 +15,5 @@ variable "RDS_ENGINE_VERSION" {}
 variable "RDS_INSTANCE_CLASS" {}
 variable "RDS_PG_FAMILY" {}
 variable "RDS_PORT" {}
-variable "VPC_ID" {}
-variable "ALLOW_SG_CIDR" {}
-variable "PRIVATE_SUBNET_IDS" {}
+
 
