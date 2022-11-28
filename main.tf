@@ -78,3 +78,16 @@ module "LB" {
 }
 
 
+module "FRONTEND" {
+  source               = "github.com/phani-devops-practice/tf-module-mutable-app"
+  ENV                  = var.ENV
+  PROJECT              = var.PROJECT
+  PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
+  VPC_ID               = module.VPC.VPC_ID
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  PORT                 = 80
+  COMPONENT            = "frontend"
+  INSTANCE_TYPE        = "t2.micro"
+  WORKSTATION_IP       = var.WORKSTATION_IP
+  INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
+}
