@@ -42,4 +42,22 @@ INSTANCE_COUNT = {
   FRONTEND = {
     COUNT = 1
   }
-}  
+  CATALOGUE = {
+    COUNT = 1
+  }
+  USER = {
+    COUNT = 1
+  }
+  CART = {
+    COUNT = 1
+  }
+  SHIPPING = {
+    COUNT = 1
+  }
+  PAYMENT = {
+    COUNT = 1
+  }
+  DISPATCH = {
+    COUNT = 1
+  }
+}
