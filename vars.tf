@@ -10,8 +10,7 @@ variable "AZ" {}
 variable "DEFAULT_VPC_ID" {}
 variable "DEFAULT_VPC_CIDR" {}
 variable "DEFAULT_VPC_RT" {}
-variable "PUBLIC_ZONE_ID" {}
-variable "PRIVATE_ZONE_ID" {}
+
 
 // RDS
 variable "RDS_ENGINE" {}
