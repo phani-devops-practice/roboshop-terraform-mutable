@@ -12,51 +12,7 @@ DEFAULT_VPC_CIDR      = "172.31.0.0/16"
 DEFAULT_VPC_RT        = "rtb-02eb032c1772c8036"
 
 
-// RDS
-RDS_ENGINE          = "mysql"
-RDS_ENGINE_VERSION  = "5.7"
-RDS_INSTANCE_CLASS  = "db.t3.micro"
-RDS_PG_FAMILY       = "mysql5.7"
-RDS_PORT            = 3306
 
 
-
-
-// ELASTICACHE
-ELASTICACHE_ENGINE          = "redis"
-ELASTICACHE_ENGINE_VERSION  = "6.2"
-ELASTICACHE_INSTANCE_CLASS  = "cache.t3.small"
-ELASTICACHE_PG_FAMILY       = "redis6.x"
-ELASTICACHE_PORT            = 6379
-ELASTICACHE_NUMBER_OF_NODES = 1
-
-// RABBITMQ
-RABBITMQ_PORT          = 5672
-RABBITMQ_INSTANCE_TYPE = "t3.micro"
-
-//
-INSTANCE_COUNT = {
-  FRONTEND = {
-    COUNT = 1
-  }
-  CATALOGUE = {
-    COUNT = 1
-  }
-  USER = {
-    COUNT = 1
-  }
-  CART = {
-    COUNT = 1
-  }
-  SHIPPING = {
-    COUNT = 1
-  }
-  PAYMENT = {
-    COUNT = 1
-  }
-  DISPATCH = {
-    COUNT = 1
-  }
-}
 
 
