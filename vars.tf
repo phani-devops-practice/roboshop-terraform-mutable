@@ -1,6 +1,8 @@
-//VPC
 variable "PROJECT" {}
 variable "ENV" {}
+variable "WORKSTATION_IP" {}
+
+//VPC
 variable "VPC_CIDR" {}
 variable "PRIVATE_SUBNET_CIDR" {}
 variable "PUBLIC_SUBNET_CIDR" {}
@@ -8,6 +10,7 @@ variable "AZ" {}
 variable "DEFAULT_VPC_ID" {}
 variable "DEFAULT_VPC_CIDR" {}
 variable "DEFAULT_VPC_RT" {}
+
 
 // RDS
 variable "RDS_ENGINE" {}
@@ -31,4 +34,8 @@ variable "ELASTICACHE_INSTANCE_CLASS" {}
 variable "ELASTICACHE_PG_FAMILY" {}
 variable "ELASTICACHE_PORT" {}
 variable "ELASTICACHE_NUMBER_OF_NODES" {}
+
+// RABBITMQ
+variable "RABBITMQ_PORT" {}
+variable "RABBITMQ_INSTANCE_TYPE" {}
 

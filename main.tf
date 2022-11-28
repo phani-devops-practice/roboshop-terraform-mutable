@@ -9,6 +9,8 @@ module "VPC" {
   DEFAULT_VPC_ID      = var.DEFAULT_VPC_ID
   DEFAULT_VPC_CIDR    = var.DEFAULT_VPC_CIDR
   DEFAULT_VPC_RT      = var.DEFAULT_VPC_RT
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
+  PUBLIC_ZONE_ID       = var.PUBLIC_ZONE_ID
 }
 
 module "RDS" {
@@ -53,6 +55,18 @@ module "ELASTICACHE" {
   PORT               = var.ELASTICACHE_PORT
   ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   NUMBER_OF_NODES    = var.ELASTICACHE_NUMBER_OF_NODES
+}
+
+module "RABBITMQ" {
+  source             = "github.com/phani-devops-practice/tf-module-rabbitmq"
+  ENV                = var.ENV
+  PROJECT            = var.PROJECT
+  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
+  VPC_ID             = module.VPC.VPC_ID
+  PORT               = var.RABBITMQ_PORT
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
+  INSTANCE_TYPE      = var.RABBITMQ_INSTANCE_TYPE
+  WORKSTATION_IP     = var.WORKSTATION_IP
 }
 
 
