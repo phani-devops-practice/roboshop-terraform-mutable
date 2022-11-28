@@ -40,4 +40,19 @@ module "DOCDB" {
   NUMBER_OF_NODES    = var.DOCDB_NUMBER_OF_NODES
 }
 
+module "ELASTICACHE" {
+  source             = "github.com/phani-devops-practice/tf-module-elasticache"
+  ENV                = var.ENV
+  PROJECT            = var.PROJECT
+  ENGINE             = var.ELASTICACHE_ENGINE
+  ENGINE_VERSION     = var.ELASTICACHE_ENGINE_VERSION
+  INSTANCE_CLASS     = var.ELASTICACHE_INSTANCE_CLASS
+  PG_FAMILY          = var.ELASTICACHE_PG_FAMILY
+  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
+  VPC_ID             = module.VPC.VPC_ID
+  PORT               = var.ELASTICACHE_PORT
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
+  NUMBER_OF_NODES    = var.ELASTICACHE_NUMBER_OF_NODES
+}
+
 
