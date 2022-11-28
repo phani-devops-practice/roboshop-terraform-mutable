@@ -9,11 +9,5 @@ variable "DEFAULT_VPC_ID" {}
 variable "DEFAULT_VPC_CIDR" {}
 variable "DEFAULT_VPC_RT" {}
 
-//RDS
-variable "RDS_ENGINE" {}
-variable "RDS_ENGINE_VERSION" {}
-variable "RDS_INSTANCE_CLASS" {}
-variable "RDS_PG_FAMILY" {}
-variable "RDS_PORT" {}
 
 
