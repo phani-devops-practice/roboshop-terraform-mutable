@@ -1,6 +1,6 @@
 ENV                   = "dev"
 PROJECT               = "roboshop"
-WORKSTATION_IP        = "172.31.8.241/32"
+
 
 // VPC
 VPC_CIDR              = "10.50.0.0/16"
