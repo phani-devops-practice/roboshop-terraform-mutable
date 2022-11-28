@@ -3,8 +3,8 @@ module "VPC" {
   PROJECT               = var.PROJECT
   ENV                   = var.ENV
   VPC_CIDR              = var.VPC_CIDR
-  PUBLIC_SUBNETS_CIDR   = var.PUBLIC_SUBNETS_CIDR
-  PRIVATE_SUBNETS_CIDR  = var.PRIVATE_SUBNETS_CIDR
+  PUBLIC_SUBNET_CIDR   = var.PUBLIC_SUBNET_CIDR
+  PRIVATE_SUBNET_CIDR  = var.PRIVATE_SUBNET_CIDR
   AZ                    = var.AZ
   DEFAULT_VPC_ID        = var.DEFAULT_VPC_ID
   DEFAULT_VPC_CIDR      = var.DEFAULT_VPC_CIDR
@@ -23,7 +23,7 @@ module "RDS" {
   ENGINE_VERSION     = var.RDS_ENGINE_VERSION
   RDS_INSTANCE_CLASS = var.RDS_INSTANCE_CLASS
   PG_FAMILY          = var.RDS_PG_FAMILY
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   RDS_PORT           = var.RDS_PORT
 }
 
@@ -38,7 +38,7 @@ module "DOCDB" {
   PRIVATE_SUBNET_IDS  = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID              = module.VPC.VPC_ID
   PORT                = var.DOCDB_PORT
-  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNET_CIDR
   NUMBER_OF_NODES     = var.DOCDB_NUMBER_OF_NODES
 }
 
@@ -53,7 +53,7 @@ module "ELASTICACHE" {
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID             = module.VPC.VPC_ID
   PORT               = var.ELASTICACHE_PORT
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   NUMBER_OF_NODES    = var.ELASTICACHE_NUMBER_OF_NODES
 }
 
@@ -64,7 +64,7 @@ module "RABBITMQ" {
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID             = module.VPC.VPC_ID
   PORT               = var.RABBITMQ_PORT
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   INSTANCE_TYPE      = var.RABBITMQ_INSTANCE_TYPE
   WORKSTATION_IP     = var.WORKSTATION_IP
 }
@@ -76,7 +76,7 @@ module "LB" {
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
   PUBLIC_SUBNET_IDS  = module.VPC.PUBLIC_SUBNET_IDS
   VPC_ID             = module.VPC.VPC_ID
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   PUBLIC_ZONE_ID     = var.PUBLIC_ZONE_ID
   PRIVATE_ZONE_ID    = var.PRIVATE_ZONE_ID
 }
@@ -87,7 +87,7 @@ module "FRONTEND" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = concat(module.VPC.PRIVATE_SUBNETS_CIDR, module.VPC.PUBLIC_SUBNETS_CIDR)
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 80
   COMPONENT            = "frontend"
   INSTANCE_TYPE        = "t2.micro"
@@ -106,7 +106,7 @@ module "CATALOGUE" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "catalogue"
   INSTANCE_TYPE        = "t2.micro"
@@ -125,7 +125,7 @@ module "USER" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "user"
   INSTANCE_TYPE        = "t2.micro"
@@ -144,7 +144,7 @@ module "CART" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "cart"
   INSTANCE_TYPE        = "t2.micro"
@@ -163,7 +163,7 @@ module "SHIPPING" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "shipping"
   INSTANCE_TYPE        = "t2.micro"
@@ -182,7 +182,7 @@ module "PAYMENT" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "payment"
   INSTANCE_TYPE        = "t2.micro"
@@ -201,7 +201,7 @@ module "DISPATCH" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
   PORT                 = 8080
   COMPONENT            = "dispatch"
   INSTANCE_TYPE        = "t2.micro"
