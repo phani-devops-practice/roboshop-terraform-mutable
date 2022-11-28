@@ -11,5 +11,18 @@ module "VPC" {
   DEFAULT_VPC_RT      = var.DEFAULT_VPC_RT
 }
 
+module "RDS" {
+  source             = "github.com/phani-devops-practice/tf-module-rds"
+  PROJECT            = var.PROJECT
+  ENV                = var.ENV
+  VPC_ID             = module.VPC.VPC_ID
+  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
+  ENGINE             = var.RDS_ENGINE
+  ENGINE_VERSION     = var.RDS_ENGINE_VERSION
+  RDS_INSTANCE_CLASS = var.RDS_INSTANCE_CLASS
+  PG_FAMILY          = var.RDS_PG_FAMILY
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  RDS_PORT           = var.RDS_PORT
+}
 
 
