@@ -2,17 +2,16 @@ variable "PROJECT" {}
 variable "ENV" {}
 variable "WORKSTATION_IP" {}
 
-//VPC
+// VPC
 variable "VPC_CIDR" {}
-variable "PRIVATE_SUBNET_CIDR" {}
-variable "PUBLIC_SUBNET_CIDR" {}
+variable "PUBLIC_SUBNETS_CIDR" {}
+variable "PRIVATE_SUBNETS_CIDR" {}
 variable "AZ" {}
 variable "DEFAULT_VPC_ID" {}
 variable "DEFAULT_VPC_CIDR" {}
 variable "DEFAULT_VPC_RT" {}
 variable "PUBLIC_ZONE_ID" {}
 variable "PRIVATE_ZONE_ID" {}
-
 
 // RDS
 variable "RDS_ENGINE" {}
@@ -22,11 +21,11 @@ variable "RDS_PG_FAMILY" {}
 variable "RDS_PORT" {}
 
 // DOCDB
+variable "DOCDB_INSTANCE_CLASS" {}
+variable "DOCDB_PORT" {}
+variable "DOCDB_PG_FAMILY" {}
 variable "DOCDB_ENGINE" {}
 variable "DOCDB_ENGINE_VERSION" {}
-variable "DOCDB_INSTANCE_CLASS" {}
-variable "DOCDB_PG_FAMILY" {}
-variable "DOCDB_PORT" {}
 variable "DOCDB_NUMBER_OF_NODES" {}
 
 // ELASTICACHE
@@ -42,4 +41,14 @@ variable "RABBITMQ_PORT" {}
 variable "RABBITMQ_INSTANCE_TYPE" {}
 
 variable "INSTANCE_COUNT" {}
+
+
+
+
+
+
+
+
+
+
 

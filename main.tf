@@ -1,16 +1,16 @@
 module "VPC" {
-  source              = "github.com/phani-devops-practice/tf-module-vpc"
-  PROJECT             = var.PROJECT
-  ENV                 = var.ENV
-  VPC_CIDR            = var.VPC_CIDR
-  PRIVATE_SUBNET_CIDR = var.PRIVATE_SUBNET_CIDR
-  PUBLIC_SUBNET_CIDR  = var.PUBLIC_SUBNET_CIDR
-  AZ                  = var.AZ
-  DEFAULT_VPC_ID      = var.DEFAULT_VPC_ID
-  DEFAULT_VPC_CIDR    = var.DEFAULT_VPC_CIDR
-  DEFAULT_VPC_RT      = var.DEFAULT_VPC_RT
-  PUBLIC_ZONE_ID      = var.PUBLIC_ZONE_ID
-  PRIVATE_ZONE_ID     = var.PRIVATE_ZONE_ID
+  source                = "github.com/phani-devops-practice/tf-module-vpc"
+  PROJECT               = var.PROJECT
+  ENV                   = var.ENV
+  VPC_CIDR              = var.VPC_CIDR
+  PUBLIC_SUBNETS_CIDR   = var.PUBLIC_SUBNETS_CIDR
+  PRIVATE_SUBNETS_CIDR  = var.PRIVATE_SUBNETS_CIDR
+  AZ                    = var.AZ
+  DEFAULT_VPC_ID        = var.DEFAULT_VPC_ID
+  DEFAULT_VPC_CIDR      = var.DEFAULT_VPC_CIDR
+  DEFAULT_VPC_RT        = var.DEFAULT_VPC_RT
+  PUBLIC_ZONE_ID        = var.PUBLIC_ZONE_ID
+  PRIVATE_ZONE_ID       = var.PRIVATE_ZONE_ID
 }
 
 module "RDS" {
@@ -23,23 +23,23 @@ module "RDS" {
   ENGINE_VERSION     = var.RDS_ENGINE_VERSION
   RDS_INSTANCE_CLASS = var.RDS_INSTANCE_CLASS
   PG_FAMILY          = var.RDS_PG_FAMILY
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
   RDS_PORT           = var.RDS_PORT
 }
 
 module "DOCDB" {
-  source             = "github.com/phani-devops-practice/tf-module-docdb"
-  ENV                = var.ENV
-  PROJECT            = var.PROJECT
-  ENGINE             = var.DOCDB_ENGINE
-  ENGINE_VERSION     = var.DOCDB_ENGINE_VERSION
-  INSTANCE_CLASS     = var.DOCDB_INSTANCE_CLASS
-  PG_FAMILY          = var.DOCDB_PG_FAMILY
-  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
-  VPC_ID             = module.VPC.VPC_ID
-  PORT               = var.DOCDB_PORT
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
-  NUMBER_OF_NODES    = var.DOCDB_NUMBER_OF_NODES
+  source              = "github.com/phani-devops-practice/tf-module-docdb"
+  ENV                 = var.ENV
+  PROJECT             = var.PROJECT
+  ENGINE              = var.DOCDB_ENGINE
+  ENGINE_VERSION      = var.DOCDB_ENGINE_VERSION
+  INSTANCE_CLASS      = var.DOCDB_INSTANCE_CLASS
+  PG_FAMILY           = var.DOCDB_PG_FAMILY
+  PRIVATE_SUBNET_IDS  = module.VPC.PRIVATE_SUBNET_IDS
+  VPC_ID              = module.VPC.VPC_ID
+  PORT                = var.DOCDB_PORT
+  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNETS_CIDR
+  NUMBER_OF_NODES     = var.DOCDB_NUMBER_OF_NODES
 }
 
 module "ELASTICACHE" {
@@ -53,7 +53,7 @@ module "ELASTICACHE" {
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID             = module.VPC.VPC_ID
   PORT               = var.ELASTICACHE_PORT
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
   NUMBER_OF_NODES    = var.ELASTICACHE_NUMBER_OF_NODES
 }
 
@@ -64,7 +64,7 @@ module "RABBITMQ" {
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID             = module.VPC.VPC_ID
   PORT               = var.RABBITMQ_PORT
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
   INSTANCE_TYPE      = var.RABBITMQ_INSTANCE_TYPE
   WORKSTATION_IP     = var.WORKSTATION_IP
 }
@@ -74,11 +74,12 @@ module "LB" {
   ENV                = var.ENV
   PROJECT            = var.PROJECT
   PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
-  VPC_ID             = module.VPC.VPC_ID
-  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   PUBLIC_SUBNET_IDS  = module.VPC.PUBLIC_SUBNET_IDS
+  VPC_ID             = module.VPC.VPC_ID
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  PUBLIC_ZONE_ID     = var.PUBLIC_ZONE_ID
+  PRIVATE_ZONE_ID    = var.PRIVATE_ZONE_ID
 }
-
 
 module "FRONTEND" {
   source               = "github.com/phani-devops-practice/tf-module-mutable-app"
@@ -86,7 +87,7 @@ module "FRONTEND" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = concat(module.VPC.PRIVATE_SUBNETS_CIDR, module.VPC.PUBLIC_SUBNETS_CIDR)
   PORT                 = 80
   COMPONENT            = "frontend"
   INSTANCE_TYPE        = "t2.micro"
@@ -94,8 +95,9 @@ module "FRONTEND" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
   LB_ARN               = module.LB.PUBLIC_LB_ARN
   LB_TYPE              = "public"
-  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
 
 module "CATALOGUE" {
@@ -104,7 +106,7 @@ module "CATALOGUE" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "catalogue"
   INSTANCE_TYPE        = "t2.micro"
@@ -114,7 +116,8 @@ module "CATALOGUE" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
+  DOCDB_ENDPOINT       = module.DOCDB.DOCDB_ENDPOINT
 }
 
 module "USER" {
@@ -123,7 +126,7 @@ module "USER" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "user"
   INSTANCE_TYPE        = "t2.micro"
@@ -133,7 +136,7 @@ module "USER" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
 
 module "CART" {
@@ -142,7 +145,7 @@ module "CART" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "cart"
   INSTANCE_TYPE        = "t2.micro"
@@ -152,7 +155,7 @@ module "CART" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
 
 module "SHIPPING" {
@@ -161,7 +164,7 @@ module "SHIPPING" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "shipping"
   INSTANCE_TYPE        = "t2.micro"
@@ -171,7 +174,7 @@ module "SHIPPING" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
 
 module "PAYMENT" {
@@ -180,7 +183,7 @@ module "PAYMENT" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "payment"
   INSTANCE_TYPE        = "t2.micro"
@@ -190,7 +193,7 @@ module "PAYMENT" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
 
 module "DISPATCH" {
@@ -199,7 +202,7 @@ module "DISPATCH" {
   PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   VPC_ID               = module.VPC.VPC_ID
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   PORT                 = 8080
   COMPONENT            = "dispatch"
   INSTANCE_TYPE        = "t2.micro"
@@ -209,6 +212,5 @@ module "DISPATCH" {
   LB_TYPE              = "private"
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
-  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
 }
-
