@@ -26,7 +26,7 @@ module "RDS" {
 }
 
 module "DOCDB" {
-  source             = "github.com/raghudevopsb65/tf-module-docdb"
+  source             = "github.com/phani-devops-practice/tf-module-docdb"
   ENV                = var.ENV
   PROJECT            = var.PROJECT
   ENGINE             = var.DOCDB_ENGINE
@@ -39,4 +39,5 @@ module "DOCDB" {
   ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNET_CIDR
   NUMBER_OF_NODES    = var.DOCDB_NUMBER_OF_NODES
 }
+
 
