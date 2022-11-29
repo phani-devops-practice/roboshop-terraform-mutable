@@ -17,5 +17,5 @@ variable "RDS_PG_FAMILY" {}
 variable "PRIVATE_SUBNET_IDS" {}
 variable "RDS_PORT" {}
 variable "ALLOW_SG_CIDR" {}
-variable "VPC_ID" {}
+
 
