@@ -20,7 +20,7 @@ module "RDS" {
   RDS_INSTANCE_CLASS  = var.RDS_INSTANCE_CLASS
   PG_FAMILY           = var.RDS_PG_FAMILY
   PRIVATE_SUBNET_IDS  = module.VPC.PRIVATE_SUBNET_IDS
-  ALLOW_SG_CIDR       = module.VPC.ALLOW_SG_CIDR
+  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNET_CIDR
   VPC_ID              = module.VPC.VPC_ID
   RDS_PORT            = var.RDS_PORT
 }
