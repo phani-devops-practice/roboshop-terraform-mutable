@@ -20,7 +20,22 @@ module "RDS" {
   RDS_INSTANCE_CLASS  = var.RDS_INSTANCE_CLASS
   PG_FAMILY           = var.RDS_PG_FAMILY
   PRIVATE_SUBNET_IDS  = module.VPC.PRIVATE_SUBNET_IDS
-  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNET_CIDR
+  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNETS_CIDR
   VPC_ID              = module.VPC.VPC_ID
   RDS_PORT            = var.RDS_PORT
+}
+
+module "DOCDB" {
+  source             = "github.com/phani-devops-practice/tf-module-docdb"
+  ENV                = var.ENV
+  PROJECT            = var.PROJECT
+  ENGINE             = var.DOCDB_ENGINE
+  ENGINE_VERSION     = var.DOCDB_ENGINE_VERSION
+  INSTANCE_CLASS     = var.DOCDB_INSTANCE_CLASS
+  PG_FAMILY          = var.DOCDB_PG_FAMILY
+  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  VPC_ID             = module.VPC.VPC_ID
+  PORT               = var.DOCDB_PORT
+  NUMBER_OF_NODES    = var.DOCDB_NUMBER_OF_NODES
 }
