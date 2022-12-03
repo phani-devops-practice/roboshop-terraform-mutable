@@ -76,3 +76,16 @@ module "LB" {
   ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
   VPC_ID             = module.VPC.VPC_ID
 }
+
+module "FRONTEND" {
+  source               = "github.com/phani-devops-practice/tf-module-mutable-app"
+  ENV                  = var.ENV
+  PROJECT              = var.PROJECT
+  PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  VPC_ID               = module.VPC.VPC_ID
+  PORT                 = 80
+  WORKSTATION_IP       = var.WORKSTATION_IP
+  COMPONENT            = "frontend"
+  INSTANCE_TYPE        = "t3.micro"
+}

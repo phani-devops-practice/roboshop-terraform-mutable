@@ -39,3 +39,5 @@ variable "RABBITMQ_PORT" {}
 variable "RABBITMQ_INSTANCE_TYPE" {}
 
 
+
+
