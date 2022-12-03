@@ -88,4 +88,5 @@ module "FRONTEND" {
   COMPONENT            = "frontend"
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
+  LB_ARN               = module.LB.PUBLIC_LB_ARN
 }
