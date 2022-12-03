@@ -54,3 +54,14 @@ module "ELASTICACHE" {
   PORT               = var.ELASTICACHE_PORT
   NUMBER_OF_NODES    = var.ELASTICACHE_NUMBER_OF_NODES
 }
+
+module "RABBITMQ" {
+  source               = "github.com/phani-devops-practice/tf-module-rabbitmq"
+  ENV                  = var.ENV
+  PROJECT              = var.PROJECT
+  INSTANCE_TYPE        = var.RABBITMQ_INSTANCE_TYPE
+  PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
+  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  VPC_ID               = module.VPC.VPC_ID
+  PORT                 = var.RABBITMQ_PORT
+}

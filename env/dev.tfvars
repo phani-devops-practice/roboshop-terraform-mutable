@@ -32,3 +32,6 @@ ELASTICACHE_PG_FAMILY         = "redis6.x"
 ELASTICACHE_PORT              = 6379
 ELASTICACHE_NUMBER_OF_NODES   = 1
 
+// RABBITMQ
+RABBITMQ_INSTANCE_TYPE        = "t3.micro"
+RABBITMQ_PORT                 = 5672
