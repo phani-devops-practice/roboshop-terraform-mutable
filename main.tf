@@ -87,4 +87,5 @@ module "FRONTEND" {
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "frontend"
   INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
 }
