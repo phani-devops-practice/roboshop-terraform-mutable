@@ -80,7 +80,6 @@ module "LB" {
 module "FRONTEND" {
   source               = "github.com/phani-devops-practice/tf-module-mutable-app"
   ENV                  = var.ENV
-  PROJECT              = var.PROJECT
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
   ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
   VPC_ID               = module.VPC.VPC_ID
