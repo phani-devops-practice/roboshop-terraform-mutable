@@ -1,6 +1,8 @@
-// VPC
 variable "ENV" {}
 variable "PROJECT" {}
+variable "WORKSTATION_IP" {}
+
+// VPC
 variable "VPC_CIDR" {}
 variable "PUBLIC_SUBNETS_CIDR" {}
 variable "PRIVATE_SUBNETS_CIDR" {}
