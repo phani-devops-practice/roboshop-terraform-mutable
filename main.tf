@@ -66,3 +66,13 @@ module "RABBITMQ" {
   PORT                 = var.RABBITMQ_PORT
   WORKSTATION_IP       = var.WORKSTATION_IP
 }
+
+module "LB" {
+  source             = "github.com/phani-devops-practice/tf-module-mutable-lb"
+  ENV                = var.ENV
+  PROJECT            = var.PROJECT
+  PUBLIC_SUBNET_IDS  = module.VPC.PUBLIC_SUBNET_IDS
+  PRIVATE_SUBNET_IDS = module.VPC.PRIVATE_SUBNET_IDS
+  ALLOW_SG_CIDR      = module.VPC.PRIVATE_SUBNETS_CIDR
+  VPC_ID             = module.VPC.VPC_ID
+}
