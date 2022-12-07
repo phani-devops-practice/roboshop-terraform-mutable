@@ -94,6 +94,8 @@ module "FRONTEND" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
   LB_ARN               = module.LB.PUBLIC_LB_ARN
   LB_TYPE              = "public"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "CATALOGUE" {
@@ -109,6 +111,8 @@ module "CATALOGUE" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CATALOGUE"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "USER" {
@@ -124,6 +128,8 @@ module "USER" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["USER"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "CART" {
@@ -139,6 +145,8 @@ module "CART" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CART"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "SHIPPING" {
@@ -154,6 +162,8 @@ module "SHIPPING" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["SHIPPING"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "PAYMENT" {
@@ -169,6 +179,8 @@ module "PAYMENT" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["PAYMENT"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "DISPATCH" {
@@ -184,5 +196,7 @@ module "DISPATCH" {
   INSTANCE_COUNT       = var.INSTANCE_COUNT["DISPATCH"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
+  PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
