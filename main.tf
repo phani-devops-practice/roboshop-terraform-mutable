@@ -91,6 +91,7 @@ module "FRONTEND" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
   LB_ARN               = module.LB.PUBLIC_LB_ARN
+  LB_TYPE              = "public"
 }
 
 module "CATALOGUE" {
@@ -105,6 +106,7 @@ module "CATALOGUE" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CATALOGUE"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
 module "USER" {
@@ -119,6 +121,7 @@ module "USER" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["USER"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
 module "CART" {
@@ -133,6 +136,7 @@ module "CART" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CART"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
 module "SHIPPING" {
@@ -147,6 +151,7 @@ module "SHIPPING" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["SHIPPING"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
 module "PAYMENT" {
@@ -161,6 +166,7 @@ module "PAYMENT" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["PAYMENT"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
 module "DISPATCH" {
@@ -175,5 +181,6 @@ module "DISPATCH" {
   INSTANCE_TYPE        = "t3.micro"
   INSTANCE_COUNT       = var.INSTANCE_COUNT["DISPATCH"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
+  LB_TYPE              = "private"
 }
 
