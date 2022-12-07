@@ -83,7 +83,7 @@ module "FRONTEND" {
   source               = "github.com/phani-devops-practice/tf-module-mutable-app"
   ENV                  = var.ENV
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
-  ALLOW_SG_CIDR        = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR        = concat(module.VPC.PRIVATE_SUBNETS_CIDR, module.VPC.PUBLIC_SUBNETS_CIDR)
   VPC_ID               = module.VPC.VPC_ID
   PORT                 = 80
   WORKSTATION_IP       = var.WORKSTATION_IP
