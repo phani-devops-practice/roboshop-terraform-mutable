@@ -67,6 +67,7 @@ module "RABBITMQ" {
   VPC_ID               = module.VPC.VPC_ID
   PORT                 = var.RABBITMQ_PORT
   WORKSTATION_IP       = var.WORKSTATION_IP
+  PRIVATE_ZONE_ID       = var.PRIVATE_ZONE_ID
 }
 
 module "LB" {
