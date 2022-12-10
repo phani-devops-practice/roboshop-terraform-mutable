@@ -22,7 +22,7 @@ module "RDS" {
   RDS_INSTANCE_CLASS  = var.RDS_INSTANCE_CLASS
   PG_FAMILY           = var.RDS_PG_FAMILY
   PRIVATE_SUBNET_IDS  = module.VPC.PRIVATE_SUBNET_IDS
-  ALLOW_SG_CIDR       = module.VPC.PRIVATE_SUBNETS_CIDR
+  ALLOW_SG_CIDR       = concat(module.VPC.PRIVATE_SUBNETS_CIDR, tolist([var.WORKSTATION_IP]))
   VPC_ID              = module.VPC.VPC_ID
   RDS_PORT            = var.RDS_PORT
 }
@@ -172,6 +172,7 @@ module "SHIPPING" {
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
+  MYSQL_ENDPOINT       = module.RDS.MYSQL_ENDPOINT
 }
 
 module "PAYMENT" {
