@@ -67,7 +67,7 @@ module "RABBITMQ" {
   VPC_ID               = module.VPC.VPC_ID
   PORT                 = var.RABBITMQ_PORT
   WORKSTATION_IP       = var.WORKSTATION_IP
-  PRIVATE_ZONE_ID       = var.PRIVATE_ZONE_ID
+  PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
 }
 
 module "LB" {
@@ -91,7 +91,7 @@ module "FRONTEND" {
   PORT                 = 80
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "frontend"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["FRONTEND"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["FRONTEND"]["COUNT"]
   LB_ARN               = module.LB.PUBLIC_LB_ARN
   LB_TYPE              = "public"
@@ -109,7 +109,7 @@ module "CATALOGUE" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "catalogue"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["CATALOGUE"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CATALOGUE"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
@@ -128,7 +128,7 @@ module "USER" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "user"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["USER"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["USER"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
@@ -148,7 +148,7 @@ module "CART" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "cart"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["CART"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["CART"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
@@ -166,7 +166,7 @@ module "SHIPPING" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "shipping"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["SHIPPING"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["SHIPPING"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
@@ -185,7 +185,7 @@ module "PAYMENT" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "payment"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["PAYMENT"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["PAYMENT"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
@@ -203,7 +203,7 @@ module "DISPATCH" {
   PORT                 = 8080
   WORKSTATION_IP       = var.WORKSTATION_IP
   COMPONENT            = "dispatch"
-  INSTANCE_TYPE        = "t3.micro"
+  INSTANCE_TYPE        = var.INSTANCE_COUNT["DISPATCH"]["INSTANCE_TYPE"]
   INSTANCE_COUNT       = var.INSTANCE_COUNT["DISPATCH"]["COUNT"]
   LB_ARN               = module.LB.PRIVATE_LB_ARN
   LB_TYPE              = "private"
