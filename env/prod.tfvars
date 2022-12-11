@@ -1,4 +1,4 @@
-ENV                   = "dev"
+ENV                   = "prod"
 PROJECT               = "roboshop"
 WORKSTATION_IP        = "172.31.8.241/32"
 
