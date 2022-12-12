@@ -1,6 +1,7 @@
 variable "ENV" {}
 variable "PROJECT" {}
 variable "WORKSTATION_IP" {}
+variable "PROMETHEUS_IP" {}
 
 // VPC
 variable "VPC_CIDR" {}

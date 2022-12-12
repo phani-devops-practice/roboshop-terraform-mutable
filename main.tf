@@ -83,6 +83,7 @@ module "LB" {
 }
 
 module "FRONTEND" {
+  depends_on           = [module.CATALOGUE, module.USER, module.CART, module.SHIPPING, module.PAYMENT, module.DISPATCH]
   source               = "github.com/phani-devops-practice/tf-module-mutable-app"
   ENV                  = var.ENV
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
@@ -98,6 +99,7 @@ module "FRONTEND" {
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "CATALOGUE" {
@@ -117,6 +119,7 @@ module "CATALOGUE" {
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
   DOCDB_ENDPOINT       = module.DOCDB.DOCDB_ENDPOINT
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "USER" {
@@ -137,6 +140,7 @@ module "USER" {
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
   DOCDB_ENDPOINT       = module.DOCDB.DOCDB_ENDPOINT
   REDIS_ENDPOINT       = module.ELASTICACHE.REDIS_ENDPOINT
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "CART" {
@@ -156,6 +160,7 @@ module "CART" {
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
   REDIS_ENDPOINT       = module.ELASTICACHE.REDIS_ENDPOINT
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "SHIPPING" {
@@ -175,6 +180,7 @@ module "SHIPPING" {
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
   MYSQL_ENDPOINT       = module.RDS.MYSQL_ENDPOINT
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "PAYMENT" {
@@ -193,6 +199,7 @@ module "PAYMENT" {
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 module "DISPATCH" {
@@ -211,6 +218,7 @@ module "DISPATCH" {
   PRIVATE_LB_DNS       = module.LB.PRIVATE_LB_DNS
   PRIVATE_ZONE_ID      = var.PRIVATE_ZONE_ID
   PRIVATE_LISTENER_ARN = module.LB.PRIVATE_LISTENER_ARN
+  PROMETHEUS_IP        = var.PROMETHEUS_IP
 }
 
 

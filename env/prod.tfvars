@@ -1,6 +1,7 @@
 ENV                   = "prod"
 PROJECT               = "roboshop"
 WORKSTATION_IP        = "172.31.8.241/32"
+PROMETHEUS_IP         = "172.31.3.34"
 
 // VPC
 VPC_CIDR              = "10.100.0.0/16"
