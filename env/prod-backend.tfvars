@@ -1,3 +1,3 @@
 bucket = "terraform-learner"
-key    = "terraform/mutable/dev/terraform.tfstate"
+key    = "terraform/mutable/prod/terraform.tfstate"
 region = "us-east-1"
