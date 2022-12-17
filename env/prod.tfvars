@@ -61,7 +61,7 @@ INSTANCE_COUNT = {
   }
   SHIPPING = {
     COUNT         = 2
-    INSTANCE_TYPE = "t3.micro"
+    INSTANCE_TYPE = "t3.small"
   }
   PAYMENT = {
     COUNT         = 2
