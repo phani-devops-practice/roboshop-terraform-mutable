@@ -53,7 +53,7 @@ INSTANCE_COUNT = {
   }
   USER = {
     COUNT         = 2
-    INSTANCE_TYPE = "t3.micro"
+    INSTANCE_TYPE = "t3.small"
   }
   CART = {
     COUNT         = 2
