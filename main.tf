@@ -83,7 +83,7 @@ module "LB" {
 }
 
 module "FRONTEND" {
-  depends_on           = [module.CATALOGUE, module.USER, module.CART, module.SHIPPING, module.PAYMENT, module.DISPATCH]
+ // depends_on           = [module.CATALOGUE, module.USER, module.CART, module.SHIPPING, module.PAYMENT, module.DISPATCH]
   source               = "github.com/phani-devops-practice/tf-module-mutable-app"
   ENV                  = var.ENV
   PRIVATE_SUBNET_IDS   = module.VPC.PRIVATE_SUBNET_IDS
