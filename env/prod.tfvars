@@ -61,7 +61,7 @@ INSTANCE_COUNT = {
   }
   SHIPPING = {
     COUNT         = 2
-    INSTANCE_TYPE = "t3.medium"
+    INSTANCE_TYPE = "t3.large"
   }
   PAYMENT = {
     COUNT         = 2
