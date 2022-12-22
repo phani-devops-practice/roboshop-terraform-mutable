@@ -53,7 +53,7 @@ INSTANCE_COUNT = {
   }
   USER = {
     COUNT         = 2
-    INSTANCE_TYPE = "t3.small"
+    INSTANCE_TYPE = "t3.micro"
   }
   CART = {
     COUNT         = 2
@@ -61,7 +61,7 @@ INSTANCE_COUNT = {
   }
   SHIPPING = {
     COUNT         = 2
-    INSTANCE_TYPE = "t3.large"
+    INSTANCE_TYPE = "t3.medium"
   }
   PAYMENT = {
     COUNT         = 2
