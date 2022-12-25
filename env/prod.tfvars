@@ -52,7 +52,7 @@ INSTANCE_COUNT = {
     INSTANCE_TYPE = "t3.micro"
   }
   USER = {
-    COUNT         = 2
+    COUNT         = 3
     INSTANCE_TYPE = "t3.micro"
   }
   CART = {
@@ -64,7 +64,7 @@ INSTANCE_COUNT = {
     INSTANCE_TYPE = "t3.medium"
   }
   PAYMENT = {
-    COUNT         = 2
+    COUNT         = 3
     INSTANCE_TYPE = "t3.micro"
   }
   DISPATCH = {
